@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  padding: 0px;
+  font-family: "Flexo-Demi",arial,sans-serif;
+  font-size: 100%;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: url("/assets/images/bg.jpg");
+}
+
+.r-10{
+  margin-right: 10px;
+}
+.l-10{
+  margin-left: 10px;
+}
+
+#sidenav-overlay {
+  display: none !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  opacity: 0 !important;
+}
+
+.drag-target {
+  display: none !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  opacity: 0 !important;
+}
+
+::-webkit-scrollbar {
+
+  }
+
+nav {
+  background-color: white;
+  }
+
+.pointer{
+  cursor: pointer !important;
+}
+
+.help{
+  cursor: help !important;
+}
+
+.not-cursor{
+  cursor: not-allowed;
+}

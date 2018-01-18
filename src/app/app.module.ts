@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MaterializeModule } from 'angular2-materialize';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
@@ -8,9 +10,10 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [HttpModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

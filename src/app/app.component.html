@@ -1,20 +1,141 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
+<ul id="slide-out" class="side-nav">
+  <div *ngIf="pokeAsync == true" class="">
+    <li *ngFor="let pokemon of data.pokemon; let x = index">
+      <a draggable="true" (click)="changePokeId(x); closeNav()" id="{{ data.pokemon[x].id }}" ><img class="miniImg" src="{{ gifLink }}{{ (data.pokemon[x].name).toLowerCase() }}.gif"> - {{ data.pokemon[x].num }} - {{ data.pokemon[x].name }}</a>
+    </li>
+  </div>
 </ul>
 
+<div *ngIf="pokeAsync == true" class="">
+  <div class="row center-align pokeData">
+    <p class="pokeName white-text">{{ data.pokemon[pokeId].name }}</p>
+
+        <div class="center-align valign-wrapper pokePoke">
+
+            <div *ngIf="pokeId == 0; else padrao_left" class="not-cursor pokeSeta valign-wrapper r-10">
+              <i class="material-icons grey-text">chevron_left</i>
+            </div>
+            <ng-template #padrao_left>
+              <div class="pointer pokeSeta valign-wrapper r-10" (click)="changePokeId(pokeId - 1)">
+                <i class="material-icons">chevron_left</i>
+              </div>
+            </ng-template>
+
+           <img class="pokeImg" src="{{ data.pokemon[pokeId].img }}" alt="">
+
+           <div *ngIf="pokeId == 150; else padrao_right" class="not-cursor pokeSeta valign-wrapper l-10">
+             <i class="material-icons grey-text">chevron_right</i>
+           </div>
+           <ng-template #padrao_right>
+             <div class="pointer pokeSeta valign-wrapper l-10" (click)="changePokeId(pokeId + 1)">
+               <i class="material-icons">chevron_right</i>
+             </div>
+           </ng-template>
+
+        </div>
+
+    <div class="row center-align">
+      <span *ngFor="let type of data.pokemon[pokeId].type; let x = index" style="margin-left:5px;" class="pokeType">
+        <a *ngIf="type == 'Steel'" class="typeBtn steelBtn">Steel</a>
+        <a *ngIf="type == 'Grass'" class="typeBtn grassBtn">Grass</a>
+        <a *ngIf="type == 'Dragon'" class="typeBtn dragonBtn">Dragon</a>
+        <a *ngIf="type == 'Fairy'" class="typeBtn fairyBtn">Fairy</a>
+        <a *ngIf="type == 'Dark'" class="typeBtn darkBtn">Dark</a>
+        <a *ngIf="type == 'Ghost'" class="typeBtn ghostBtn">Ghost</a>
+        <a *ngIf="type == 'Bug'" class="typeBtn bugBtn">Bug</a>
+        <a *ngIf="type == 'Fighting'" class="typeBtn fightBtn">Fighting</a>
+        <a *ngIf="type == 'Electric'" class="typeBtn electricBtn">Electric</a>
+        <a *ngIf="type == 'Ice'" class="typeBtn iceBtn">Ice</a>
+        <a *ngIf="type == 'Psychic'" class="typeBtn psychicBtn">Psychic</a>
+        <a *ngIf="type == 'Normal'" class="typeBtn normalBtn">Normal</a>
+        <a *ngIf="type == 'Ground'" class="typeBtn groundBtn">Ground</a>
+        <a *ngIf="type == 'Rock'" class="typeBtn rockBtn">Rock</a>
+        <a *ngIf="type == 'Flying'" class="typeBtn flyBtn">Flying</a>
+        <a *ngIf="type == 'Water'" class="typeBtn waterBtn">Water</a>
+        <a *ngIf="type == 'Fire'" class="typeBtn fireBtn">Fire</a>
+        <a *ngIf="type == 'Poison'" class="typeBtn poisonBtn">Poison</a>
+      </span>
+    </div>
+
+    <div class="row center-align pokeStatus">
+      <i class="pointer small material-icons pokeIconStatus">assessment</i>
+      <p>Altura: {{ data.pokemon[pokeId].height }}</p>
+      <p>Kilos: {{ data.pokemon[pokeId].weight }}</p>
+    </div>
+
+    <div class="row center-align">
+      <p>Weakness</p>
+      <span *ngFor="let type of data.pokemon[pokeId].weaknesses; let x = index" style="margin-left:5px;" class="pokeWeak">
+        <a *ngIf="type == 'Steel'" class="weakBtn steelBtn">Steel</a>
+        <a *ngIf="type == 'Grass'" class="weakBtn grassBtn">Grass</a>
+        <a *ngIf="type == 'Dragon'" class="weakBtn dragonBtn">Dragon</a>
+        <a *ngIf="type == 'Fairy'" class="weakBtn fairyBtn">Fairy</a>
+        <a *ngIf="type == 'Dark'" class="weakBtn darkBtn">Dark</a>
+        <a *ngIf="type == 'Ghost'" class="weakBtn ghostBtn">Ghost</a>
+        <a *ngIf="type == 'Bug'" class="weakBtn bugBtn">Bug</a>
+        <a *ngIf="type == 'Fighting'" class="weakBtn fightBtn">Fighting</a>
+        <a *ngIf="type == 'Electric'" class="weakBtn electricBtn">Electric</a>
+        <a *ngIf="type == 'Ice'" class="weakBtn iceBtn">Ice</a>
+        <a *ngIf="type == 'Psychic'" class="weakBtn psychicBtn">Psychic</a>
+        <a *ngIf="type == 'Normal'" class="weakBtn normalBtn">Normal</a>
+        <a *ngIf="type == 'Ground'" class="weakBtn groundBtn">Ground</a>
+        <a *ngIf="type == 'Rock'" class="weakBtn rockBtn">Rock</a>
+        <a *ngIf="type == 'Flying'" class="weakBtn flyBtn">Flying</a>
+        <a *ngIf="type == 'Water'" class="weakBtn waterBtn">Water</a>
+        <a *ngIf="type == 'Fire'" class="weakBtn fireBtn">Fire</a>
+        <a *ngIf="type == 'Poison'" class="weakBtn poisonBtn">Poison</a>
+      </span>
+    </div>
+
+    <div class="row center-align">
+      <p>Evolutions</p>
+      <!-- http://www.pokestadium.com/sprites/xy/{{ (data.pokemon[pokeId].name).toLowerCase() }}.gif -->
+      <!-- Caso tenha alguma Ev Prévia -->
+      <div *ngIf="data.pokemon[pokeId].prev_evolution; else no_prev">
+        <!-- Caso tenha 2 Ev Prévia -->
+        <div *ngIf="data.pokemon[pokeId].prev_evolution[1]; else one_prev">
+          <img class="pointer gifImg" (click)="changePokeId(pokeId - 2)" src="{{ gifLink }}{{ (data.pokemon[pokeId].prev_evolution[0].name).toLowerCase() }}.gif" alt="">
+          <img class="pointer gifImg" (click)="changePokeId(pokeId - 1)" src="{{ gifLink }}{{ (data.pokemon[pokeId].prev_evolution[1].name).toLowerCase() }}.gif" alt="">
+          <img class="gifImg" src="{{ gifLink }}{{ (data.pokemon[pokeId].name).toLowerCase() }}.gif" alt="">
+        </div>
+        <!-- Caso tenha 1 Ev Prévia -->
+        <ng-template #one_prev>
+          <!-- Caso tenha 1 Ev Prévia + 1 Ev Posterior -->
+          <div *ngIf="data.pokemon[pokeId].next_evolution; else one_prev_no_pos">
+            <img class="pointer gifImg" (click)="changePokeId(pokeId - 1)" src="{{ gifLink }}{{ (data.pokemon[pokeId].prev_evolution[0].name).toLowerCase() }}.gif" alt="">
+            <img class="gifImg" src="{{ gifLink }}{{ (data.pokemon[pokeId].name).toLowerCase() }}.gif" alt="">
+            <img class="pointer gifImg" (click)="changePokeId(pokeId + 1)" src="{{ gifLink }}{{ (data.pokemon[pokeId].next_evolution[0].name).toLowerCase() }}.gif" alt="">
+          </div>
+          <!-- Caso tenha 1 Ev Prévia sem Posterior -->
+          <ng-template #one_prev_no_pos>
+            <img class="pointer gifImg" (click)="changePokeId(pokeId - 1)" src="{{ gifLink }}{{ (data.pokemon[pokeId].prev_evolution[0].name).toLowerCase() }}.gif" alt="">
+            <img class="gifImg" src="{{ gifLink }}{{ (data.pokemon[pokeId].name).toLowerCase() }}.gif" alt="">
+          </ng-template>
+        </ng-template>
+      </div>
+      <!-- Caso não tenha Ev Prévia -->
+      <ng-template #no_prev>
+        <div *ngIf="data.pokemon[pokeId].next_evolution">
+          <!-- Caso tenha 2 Ev Posterior -->
+          <div *ngIf="data.pokemon[pokeId].next_evolution[1]; else one_pos">
+            <img class="gifImg" src="{{ gifLink }}{{ (data.pokemon[pokeId].name).toLowerCase() }}.gif" alt="">
+            <img class="pointer gifImg" (click)="changePokeId(pokeId + 1)" src="{{ gifLink }}{{ (data.pokemon[pokeId].next_evolution[0].name).toLowerCase() }}.gif" alt="">
+            <img class="pointer gifImg" (click)="changePokeId(pokeId + 2)" src="{{ gifLink }}{{ (data.pokemon[pokeId].next_evolution[1].name).toLowerCase() }}.gif" alt="">
+          </div>
+          <!-- Caso tenha 1 Ev Posterior -->
+          <ng-template #one_pos>
+            <img class="gifImg" src="{{ gifLink }}{{ (data.pokemon[pokeId].name).toLowerCase() }}.gif" alt="">
+            <img class="pointer gifImg" (click)="changePokeId(pokeId + 1)" src="{{ gifLink }}{{ (data.pokemon[pokeId].next_evolution[0].name).toLowerCase() }}.gif" alt="">
+          </ng-template>
+        </div>
+      </ng-template>
+    </div>
+
+  </div>
+</div>
+
+<img class="pokeball button-collapse pointer" src="/assets/images/pokeball.png" data-activates="slide-out" (click)="changePokeball()" >
+
+<!--
+http://www.pokestadium.com/sprites/xy/{{ (data.pokemon[pokeId].name).toLowerCase() }}.gif
+-->
